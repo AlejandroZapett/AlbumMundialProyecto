@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AlbumMundialProyecto</string>
+    <string name="strAlbum">Ver Album</string>
+    <string name="strRepetidas">Estampas Repetidas</string>
+    <string name="Avance">Avance</string>
+    <string name="strTienda">Comprar sobre</string>
 </resources>

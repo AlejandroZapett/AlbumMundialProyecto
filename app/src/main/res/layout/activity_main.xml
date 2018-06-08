@@ -2,17 +2,130 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MenuPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.alejnadrozapett.albummundialproyecto.MainActivity">
+    android:background="@drawable/menuprincipal"
+    android:orientation="horizontal"
+    tools:context="@drawable/background_slash">
+
+    <ImageButton
+        android:id="@+id/ibAvance"
+        android:layout_width="99dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/avance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avance" />
+
+    <ImageButton
+        android:id="@+id/ibRepetidas"
+        android:layout_width="131dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/repetidas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/repetidas" />
+
+    <ImageButton
+        android:id="@+id/ibAlbum"
+        android:layout_width="137dp"
+        android:layout_height="159dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/album"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/album" />
+
+    <ImageButton
+        android:id="@+id/ibTienda"
+        android:layout_width="113dp"
+        android:layout_height="99dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/tienda"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tienda" />
+
+    <ImageView
+        android:id="@+id/ivRusia"
+        android:layout_width="168dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo2018" />
 
     <TextView
+        android:id="@+id/tvAvance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="156dp"
+        android:background="@android:color/holo_red_dark"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:fontFamily="monospace"
+        android:shadowColor="@android:color/black"
+        android:text="@string/Avance"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginBottom="73dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/holo_red_dark"
+        android:fontFamily="monospace"
+        android:text="@string/strAlbum"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/ivRusia"
+        app:layout_constraintTop_toBottomOf="@+id/ibAlbum"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvTienda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:background="@android:color/holo_red_dark"
+        android:fontFamily="monospace"
+        android:text="@string/strTienda"
+        android:textColor="@android:color/background_light"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ibTienda" />
+
+    <TextView
+        android:id="@+id/tvRepetidas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/holo_red_dark"
+        android:fontFamily="monospace"
+        android:text="@string/strRepetidas"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ibRepetidas"
+        app:layout_constraintVertical_bias="0.111" />
 
 </android.support.constraint.ConstraintLayout>
