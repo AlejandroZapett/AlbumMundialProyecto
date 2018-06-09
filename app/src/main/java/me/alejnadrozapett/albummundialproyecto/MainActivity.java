@@ -1,6 +1,7 @@
 package me.alejnadrozapett.albummundialproyecto;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private int estampasRepetidas [] = new int[50];
     private int estampasCompradas [] = new int[50];
     private int sobresComprados;
-    private int sobresTotal = 50;
+    private final int sobresTotal = 50;
 
     ImageButton ibAvance;
     ImageButton ibRepetidas;
@@ -116,7 +117,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void verAvance(){
         //cambiar a página de Avance
-        Toast.makeText(this, "avance", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, Avance.class);
+        startActivity(intent);
+        //Toast.makeText(this, "avance", Toast.LENGTH_SHORT).show();
     }
     public void repetidas(){
         //cambiar a página de repetidas
