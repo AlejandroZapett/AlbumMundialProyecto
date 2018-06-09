@@ -3,6 +3,7 @@ package me.alejnadrozapett.albummundialproyecto;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,18 @@ import java.util.ArrayList;
 
 public class Avance extends AppCompatActivity {
 
+    private final String listaJugadores = "1:Nawaf Al Abed,2:Mohamed Salah,3:Emil Forsberg,4:Aleksandr Kokorin," +
+            "5:Victor Moses,6:Philippe Coutinho,7:Eden Hazard,8:Olivier Giroud,9:James Rodríguez," +
+            "10:Sadio Mané,11:Hirving Lozano,12:Cristiano Ronaldo,13:Andrés Iniesta,14:Branislav Ivanovic," +
+            "15:Gylfi Sigurdsson,16:Lionel Messi,17:Paolo Guerrero,18:Marcelo Vieira,19:Shinji Kagawa," +
+            "20:Radamel Falcao,21:Mesut Özil,22:Moussa Konaté,23:Luca Modric,24:Hamza Mendyl," +
+            "25:Romelu Lukaku,26:Ferjani Sassi,27:Mehdi Benatia,28:Francisco Alarcón,29:Toni Kroos," +
+            "30:Christian Eriksen,31:Luis Suárez,32:Xherdan Shaqiri,33:Kylian Mbappé,34:Thomas Müller," +
+            "35:Mile Jedinak,36:Alex Iwobi,37:Carlos Vela,38:Manuel Neuer,39:Javier Hernández," +
+            "40:Sergio Agüero,41:Andrés Guardado,42:Harry Kane,43:Son Heung-min,44:Paulo Dybala," +
+            "45:Antoine Griezmann,46:Neymar Jr.,47:Keylor Navas,48:Sergio Ramos,49:Robert Lewandowski," +
+            "50:Edinson Cavani";
+    private ArrayList<Jugadores> objetoJugadores = new ArrayList<Jugadores>();
     private final int numEstampas = 50;
     private int[] estampasCompradas = new int[50];
     private ArrayList<Text> listaText = new ArrayList<Text>();
@@ -28,6 +41,7 @@ public class Avance extends AppCompatActivity {
         setContentView(R.layout.activity_avance);
         leerInfo();
         colocarCuadroEstampas();
+        colocarListaEstampas();
         atras = (Button) findViewById(R.id.atras);
 
         atras.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +61,8 @@ public class Avance extends AppCompatActivity {
     }
 
     private void setEstampasCompradas(int[] estampasCompradas) {
-        this.estampasCompradas = estampasCompradas;
+        for(int i = 0; i<estampasCompradas.length; i++)
+            this.estampasCompradas[i] = estampasCompradas[i];
     }
 
     private void leerInfo(){
@@ -86,6 +101,7 @@ public class Avance extends AppCompatActivity {
         Toast.makeText(this, "ver jugador", Toast.LENGTH_SHORT).show();
     }
     private void colocarCuadroEstampas(){
+        Toast.makeText(this, "hola", Toast.LENGTH_SHORT).show();
         LinearLayout layoutH1 = (LinearLayout) findViewById(R.id.LOH1);
         LinearLayout layoutH2 = (LinearLayout) findViewById(R.id.LOH2);
         LinearLayout layoutH3 = (LinearLayout) findViewById(R.id.LOH3);
@@ -101,6 +117,7 @@ public class Avance extends AppCompatActivity {
             //frame de acuerdo a las compradas
             TextView text = new TextView(getApplicationContext());
             text.setText(t.text);
+            text.setTextColor(Color.BLACK);
             text.setId(t.id);
             FrameLayout frame = new FrameLayout(getApplicationContext());
             frame.setId(t.id+50);
@@ -125,14 +142,32 @@ public class Avance extends AppCompatActivity {
             }
         }
     }
-    /*private void colocarListaEstampas(){
+
+    private void colocarListaEstampas(){
+        String[] datos = listaJugadores.split(",");
+        LinearLayout layputDer = (LinearLayout) findViewById(R.id.LayoutVerticalDer);
+        for(int i = 0; i<50; i++){
+            String[] subdatos = datos[i].split(":");
+            objetoJugadores.add(new Jugadores(subdatos[1], Integer.parseInt(subdatos[0])));
+        }
         int [] ec = getEstampasCompradas();
         for(int i=0; i< ec.length; i++){
+            // las repetidas son los id de los jugadores
             if (ec[i] != 0){
+                //crear boton y colocarlo en contenedor
+                Button btnJ = new Button(getApplicationContext());
+                for (Jugadores j:objetoJugadores){
+                    if(j.id == ec[i]){
+                        String textoBoton = Integer.toString(j.id)+" "+j.nombre;
+                        btnJ.setText(textoBoton);
+                        layputDer.addView(btnJ);
+                        break;
+                    }
+                }
 
             }
         }
-    }*/
+    }
 
     public class Text {
         String text;
@@ -143,5 +178,15 @@ public class Avance extends AppCompatActivity {
             this.id = id;
         }
     }
+    public class Jugadores {
+        String nombre;
+        int id;
+
+        public Jugadores(String nombre, int id) {
+            this.nombre = nombre;
+            this.id = id;
+        }
+    }
+
 }
 
