@@ -93,15 +93,18 @@ public class MainActivity extends AppCompatActivity {
         return regreso;
     }
 
-    public int[] getEstampasRepetidas() {
+    public int[] getEstampasRepetidas()
+    {
         return estampasRepetidas;
     }
+
 
     protected void setEstampasRepetidas(int[] estampasRepetidas) {
         this.estampasRepetidas = estampasRepetidas;
     }
 
-    public int[] getEstampasCompradas() {
+    public int[] getEstampasCompradas()
+    {
         return estampasCompradas;
     }
 
@@ -110,10 +113,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int getSobresComprados() {
+
         return sobresComprados;
     }
 
     protected void setSobresComprados(int sobresComprados) {
+
         this.sobresComprados = sobresComprados;
     }
 
@@ -136,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void repetidas(){
         //cambiar a página de repetidas
+        Intent repetidas = new Intent(MainActivity.this,Repetidas.class);
+        startActivity(repetidas);
         Toast.makeText(this, "repetidas", Toast.LENGTH_SHORT).show();
     }
 
