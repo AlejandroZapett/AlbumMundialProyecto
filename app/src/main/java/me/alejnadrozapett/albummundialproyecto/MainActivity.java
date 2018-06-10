@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void verAlbum(){
         //cambiar a página de album
-        Toast.makeText(this, "ver album", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, VerAlbum.class);
+        startActivity(intent);
+        //Toast.makeText(this, "ver album", Toast.LENGTH_SHORT).show();
     }
     public void verAvance(){
         //cambiar a página de Avance
