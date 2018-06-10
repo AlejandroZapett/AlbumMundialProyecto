@@ -12,4 +12,5 @@
     <string name="confirmacion_compra">Deseas comprar un sobre de estampas?</string>
     <string name="Aceptar">Aceptar</string>
     <string name="Cancelar">Cancelar</string>
+    <string name="bloqueado">Bloqueado</string>
 </resources>
