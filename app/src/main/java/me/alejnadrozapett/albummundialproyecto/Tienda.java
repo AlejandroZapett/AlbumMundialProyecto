@@ -41,7 +41,7 @@ public class Tienda extends AppCompatActivity {
         setContentView(R.layout.activity_tienda);
         ibSobre=(ImageButton) findViewById(R.id.ibSobre);
         persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
-        //leerInfo();
+        leerInfo();
         ibSobre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,8 +50,6 @@ public class Tienda extends AppCompatActivity {
                 } else{
                     advertenciaDeCompra();
                 }
-
-
             }
         });
     }
@@ -100,6 +98,7 @@ public class Tienda extends AppCompatActivity {
                 repetidas = repetidas+Integer.toString(estampasRepetidas[i]);
             }
         }
+        Toast.makeText(this, compradas,Toast.LENGTH_LONG ).show();
         Toast.makeText(this, repetidas,Toast.LENGTH_LONG ).show();
         Toast.makeText(this, Integer.toString(sobresComprados),Toast.LENGTH_LONG ).show();
         editorPersistencia.putString("compradas", compradas);
@@ -108,20 +107,27 @@ public class Tienda extends AppCompatActivity {
         editorPersistencia.apply();
     }
     private void leerInfo(){
-        // reptidas = 0,0,4,1,0,0,3,2....
+        //persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
         if (persistencia.contains("repetidas")){
+            // la informacion va a estar guardada de la siguiente forma: 1,2,3,0,5,0,0,8
             String repetidas = persistencia.getString("repetidas", "0");
-
-        }
-        // compradas = 1,2,3,4,5,0,0,8,9,0,...
-
-        // sobresComprados = 3
-        if(persistencia.contains("sobresComprados")){
-            setSobresComprados(Integer.parseInt(persistencia.getString("sobresComprados", "0")));
+            estampasRepetidas = parseoInfo(repetidas);
+            if (persistencia.contains("compradas")){
+                String compradas = persistencia.getString("compradas", "0");
+                estampasCompradas = parseoInfo(compradas);
+            }
+            if(persistencia.contains("sobresComprados")){
+                setSobresComprados(Integer.parseInt(persistencia.getString("sobresComprados", "0")));
+            }
         }
     }
-    public int[] parseoInfo(String cadena){
-        return new int[5];
+    private int[] parseoInfo(String cadena){
+        String[] r = cadena.split(",");
+        int[] regreso = new int[r.length];
+        for(int i=0; i<r.length ; i++){
+            regreso[i] = Integer.parseInt(r[i]);
+        }
+        return regreso;
     }
 
     private int[] parseRequest(String s) {

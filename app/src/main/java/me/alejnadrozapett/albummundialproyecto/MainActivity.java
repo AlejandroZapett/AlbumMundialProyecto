@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private int estampasCompradas [] = new int[50];
     private int sobresComprados;
     private final int sobresTotal = 50;
+    SharedPreferences persistencia;
 
     ImageButton ibAvance;
     ImageButton ibRepetidas;
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //leerInfo();
-        SharedPreferences persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
+        persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
+        leerInfo();
         persistencia.edit().clear().apply();
         ibAvance = (ImageButton) findViewById(R.id.ibAvance);
         ibRepetidas = (ImageButton) findViewById(R.id.ibRepetidas);
@@ -63,28 +64,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void leerInfo(){
         SharedPreferences persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
-            // la informacion va a estar guardada de la siguiente forma: 1,2,3,4
-        if (persistencia.contains("repetidas")) {
-            String repetidas = persistencia.getString("repetidas", "0");
-            Toast.makeText(this, repetidas,Toast.LENGTH_LONG ).show();
-            setEstampasRepetidas(parseoInfo(repetidas));
-        } else {
-            for (int i = 0; i < estampasRepetidas.length; i++) {
-                estampasRepetidas[i] = 0;
+        if (persistencia.contains("repetidas")){
+            // la informacion va a estar guardada de la siguiente forma: 1,2,3,0,5,0,0,8
+            if (persistencia.contains("compradas")){
+                String compradas = persistencia.getString("compradas", "0");
+                setEstampasCompradas(parseoInfo(compradas));
             }
-        }
-        if (persistencia.contains("compradas")){
-            String compradas = persistencia.getString("compradas", "0");
-            Toast.makeText(this, compradas,Toast.LENGTH_LONG ).show();
-            setEstampasCompradas(parseoInfo(compradas));
-        }  else {
-            for (int i = 0; i < getEstampasCompradas().length; i++) {
-                estampasCompradas[i] = 0;
+            if(persistencia.contains("sobresComprados")){
+                setSobresComprados(Integer.parseInt(persistencia.getString("sobresComprados", "0")));
             }
         }
     }
-
-    public int[] parseoInfo(String cadena){
+    private int[] parseoInfo(String cadena){
         String[] r = cadena.split(",");
         int[] regreso = new int[r.length];
         for(int i=0; i<r.length ; i++){
