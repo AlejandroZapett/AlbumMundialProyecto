@@ -109,37 +109,19 @@ public class Tienda extends AppCompatActivity {
     }
     private void leerInfo(){
         // reptidas = 0,0,4,1,0,0,3,2....
-        if(persistencia.contains("repetidas")){
+        if (persistencia.contains("repetidas")){
             String repetidas = persistencia.getString("repetidas", "0");
-            Toast.makeText(this, repetidas,Toast.LENGTH_LONG ).show();
-            setEstampasRepetidas(parseoInfo(repetidas), "s");
-        } else {
-            for (int i =0; i<getEstampasRepetidas().length; i++){
-                estampasRepetidas[i] = 0;
-            }
+            
         }
         // compradas = 1,2,3,4,5,0,0,8,9,0,...
-        if(persistencia.contains("compradas")){
-            String compradas = persistencia.getString("compradas", "0");
-            setEstampasRepetidas(parseoInfo(compradas), "s");
-        } else {
-            for (int i =0; i<getEstampasCompradas().length; i++){
-                estampasCompradas[i] = 0;
-            }
-        }
+
         // sobresComprados = 3
         if(persistencia.contains("sobresComprados")){
             setSobresComprados(Integer.parseInt(persistencia.getString("sobresComprados", "0")));
         }
     }
     public int[] parseoInfo(String cadena){
-        String[] r = cadena.split(",");
-        int[] regreso = new int[r.length];
-        for(int i=0; i<r.length ; i++){
-            //Toast.makeText(this, r[i], Toast.LENGTH_SHORT).show();
-            regreso[i] = Integer.parseInt(r[i]);
-        }
-        return regreso;
+
     }
 
     private int[] parseRequest(String s) {
