@@ -41,7 +41,7 @@ public class Tienda extends AppCompatActivity {
         setContentView(R.layout.activity_tienda);
         ibSobre=(ImageButton) findViewById(R.id.ibSobre);
         persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
-        leerInfo();
+        //leerInfo();
         ibSobre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +111,7 @@ public class Tienda extends AppCompatActivity {
         // reptidas = 0,0,4,1,0,0,3,2....
         if (persistencia.contains("repetidas")){
             String repetidas = persistencia.getString("repetidas", "0");
-            
+
         }
         // compradas = 1,2,3,4,5,0,0,8,9,0,...
 
@@ -121,7 +121,7 @@ public class Tienda extends AppCompatActivity {
         }
     }
     public int[] parseoInfo(String cadena){
-
+        return new int[5];
     }
 
     private int[] parseRequest(String s) {
