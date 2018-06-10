@@ -4,4 +4,11 @@
     <string name="strRepetidas">Estampas Repetidas</string>
     <string name="Avance">Avance</string>
     <string name="strTienda">Comprar sobre</string>
+    <string name="strTienda1">Tienda de Estampas</string>
+    <string name="strTienda2">COMPRAR SOBRE:</string>
+    <string name="strTienda3">Recuerda que sólo puedes comprar diez sobres!, Para conseguir todas las estampas intercambia con tus amigos.</string>
+    <string name="strTienda4">Sobres comprados:</string>
+    <string name="confirmacion_compra">Deseas comprar un sobre de estampas?</string>
+    <string name="Aceptar">Aceptar</string>
+    <string name="Cancelar">Cancelar</string>
 </resources>
