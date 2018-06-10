@@ -24,7 +24,7 @@ public class Tienda extends AppCompatActivity {
     }
 
     public void advertenciaDeCompra() {
-        Toast.makeText(this, "Sobre comprado", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sobre comprado!", Toast.LENGTH_SHORT).show();
     }
 
 
