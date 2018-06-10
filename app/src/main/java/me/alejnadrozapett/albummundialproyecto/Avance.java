@@ -1,12 +1,15 @@
 package me.alejnadrozapett.albummundialproyecto;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 
 public class Avance extends AppCompatActivity {
 
+    Dialog myDialog;
     private final String listaJugadores = "1:Nawaf Al Abed,2:Mohamed Salah,3:Emil Forsberg,4:Aleksandr Kokorin," +
             "5:Victor Moses,6:Philippe Coutinho,7:Eden Hazard,8:Olivier Giroud,9:James Rodríguez," +
             "10:Sadio Mané,11:Hirving Lozano,12:Cristiano Ronaldo,13:Andrés Iniesta,14:Branislav Ivanovic," +
@@ -33,16 +37,25 @@ public class Avance extends AppCompatActivity {
     private int[] estampasCompradas = new int[50];
     private ArrayList<Text> listaText = new ArrayList<Text>();
 
+
     Button atras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avance);
+        this.estampasCompradas[14] = 15;
+        this.estampasCompradas[0] = 1;
+        this.estampasCompradas[1] = 2;
+        this.estampasCompradas[2] = 3;
+        this.estampasCompradas[3] = 4;
+        this.estampasCompradas[4] = 5;
+        this.estampasCompradas[5] = 6;
         leerInfo();
         colocarCuadroEstampas();
         colocarListaEstampas();
         atras = (Button) findViewById(R.id.atras);
+        myDialog = new Dialog(this);
 
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,14 +74,15 @@ public class Avance extends AppCompatActivity {
     }
 
     private void setEstampasCompradas(int[] estampasCompradas) {
-        for(int i = 0; i<estampasCompradas.length; i++)
+        for(int i = 0; i<estampasCompradas.length; i++) {
             this.estampasCompradas[i] = estampasCompradas[i];
+        }
     }
 
     private void leerInfo(){
         SharedPreferences persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
         if (persistencia.contains("repetidas")){
-            // la informacion va a estar guardada de la siguiente forma: 1,2,3
+            // la informacion va a estar guardada de la siguiente forma: 1,2,3,0,5,0,0,8
             if (persistencia.contains("compradas")){
                 String compradas = persistencia.getString("compradas", "0");
                 setEstampasCompradas(parseoInfo(compradas));
@@ -96,12 +110,11 @@ public class Avance extends AppCompatActivity {
         // 2. que id de jugador se quiere ver
         //Intent intent = new Intent(Avance.this, Jugador.class);
         //intent.putExtra("ventana", ventana);
-        //intent.putExtra("jugador", jugador);
+        //intent.putExtra("jugador", Integer.toString(jugador));
         //startActivity(intent);
         Toast.makeText(this, "ver jugador", Toast.LENGTH_SHORT).show();
     }
     private void colocarCuadroEstampas(){
-        Toast.makeText(this, "hola", Toast.LENGTH_SHORT).show();
         LinearLayout layoutH1 = (LinearLayout) findViewById(R.id.LOH1);
         LinearLayout layoutH2 = (LinearLayout) findViewById(R.id.LOH2);
         LinearLayout layoutH3 = (LinearLayout) findViewById(R.id.LOH3);
@@ -113,15 +126,25 @@ public class Avance extends AppCompatActivity {
         }
 
         for (Text t:listaText){
-            //editar propiedades del frame y el text
             //frame de acuerdo a las compradas
             TextView text = new TextView(getApplicationContext());
             text.setText(t.text);
-            text.setTextColor(Color.BLACK);
+            text.setTextColor(Color.WHITE);
             text.setId(t.id);
             FrameLayout frame = new FrameLayout(getApplicationContext());
             frame.setId(t.id+50);
             frame.addView(text);
+            if(this.estampasCompradas[t.id] == Integer.parseInt(t.text)){
+                frame.setBackgroundColor(Color.rgb(76,175,80));
+
+            } else{
+                frame.setBackgroundColor(Color.rgb(2,136,209));
+            }
+
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(120, ViewGroup.LayoutParams.MATCH_PARENT);
+            frame.setPadding(30,30, 1,1);
+            frame.setLayoutParams(params);
+
             int valor = (int)(t.id/10);
             switch (valor){
                 case 0:
@@ -146,6 +169,9 @@ public class Avance extends AppCompatActivity {
     private void colocarListaEstampas(){
         String[] datos = listaJugadores.split(",");
         LinearLayout layputDer = (LinearLayout) findViewById(R.id.LayoutVerticalDer);
+        //Button prueba = new Button(getApplicationContext());
+        //layputDer.addView(prueba);
+
         for(int i = 0; i<50; i++){
             String[] subdatos = datos[i].split(":");
             objetoJugadores.add(new Jugadores(subdatos[1], Integer.parseInt(subdatos[0])));
@@ -161,10 +187,15 @@ public class Avance extends AppCompatActivity {
                         String textoBoton = Integer.toString(j.id)+" "+j.nombre;
                         btnJ.setText(textoBoton);
                         layputDer.addView(btnJ);
-                        break;
+                        btnJ.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //verJugador("avance", 1);
+                                showPopUp();
+                            }
+                        });
                     }
                 }
-
             }
         }
     }
@@ -186,6 +217,19 @@ public class Avance extends AppCompatActivity {
             this.nombre = nombre;
             this.id = id;
         }
+    }
+    public void showPopUp() {
+        TextView textClose;
+        myDialog.setContentView(R.layout.activity_jugador);
+        textClose = (TextView) myDialog.findViewById(R.id.textClose);
+        textClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
     }
 
 }

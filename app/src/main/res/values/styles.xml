@@ -12,4 +12,10 @@
         <item name="android:windowBackground">@drawable/background_slash</item>
     </style>
 
+    <style name="PrimaryFlatButton" parent="Theme.AppCompat.Light">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="colorControlHighlight">@color/DarkBlue</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+
 </resources>

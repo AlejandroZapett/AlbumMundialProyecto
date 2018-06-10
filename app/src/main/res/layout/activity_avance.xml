@@ -5,54 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@drawable/fondoestadio"
     tools:context="me.alejnadrozapett.albummundialproyecto.Avance">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/LayoutVerticalIz"
-            android:layout_width="373dp"
+            android:layout_width="400dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="39dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/lightBlue">
 
-                <Button
-                    android:id="@+id/atras"
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="39dp"
+                    android:orientation="horizontal"
+                    android:background="@color/lightBlue">
+
+                    <Button
+                        android:id="@+id/atras"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/back"
+                        android:textColor="@color/SplashScreen"
+                        android:theme="@style/PrimaryFlatButton" />
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Atrás" />
+                    android:layout_gravity="center"
+                    android:paddingLeft="70dp"
+                    android:textColor="@color/black"
+                    android:text="@string/Avance"
+                    android:textSize="16dp"/>
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/LOH1"
                 android:layout_width="match_parent"
-                android:layout_height="51dp"
+                android:layout_height="57dp"
                 android:orientation="horizontal"></LinearLayout>
 
             <LinearLayout
                 android:id="@+id/LOH2"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="57dp"
                 android:orientation="horizontal"></LinearLayout>
 
             <LinearLayout
                 android:id="@+id/LOH3"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
+                android:layout_height="57dp"
                 android:orientation="horizontal"></LinearLayout>
 
             <LinearLayout
                 android:id="@+id/LOH4"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="57dp"
                 android:orientation="horizontal"></LinearLayout>
 
             <LinearLayout
@@ -62,12 +91,43 @@
                 android:orientation="horizontal"></LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LayoutVerticalDer"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/SplashScreen">
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LayoutVerticalDer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/SplashScreen">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp"
+                    android:orientation="horizontal"
+                    android:background="@color/lightBlue">
+
+
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@string/jugadores"
+                        android:textSize="16dp"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
 </LinearLayout>

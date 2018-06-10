@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="SplashScreen">#FFFFFF</color>
+    <color name="DarkBlue">#0288D1</color>
+    <color name="black">#000</color>
+    <color name="lightBlue">#B3E5FC</color>
 </resources>
