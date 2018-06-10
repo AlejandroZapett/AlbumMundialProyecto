@@ -1,11 +1,14 @@
 package me.alejnadrozapett.albummundialproyecto;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,11 +23,13 @@ import org.json.JSONObject;
 
 public class Tienda extends AppCompatActivity {
     ImageButton ibSobre;
+    //TextView sobres = (TextView) findViewById(R.id.tvTienda4);
 
+    private SharedPreferences persistencia;
     private RequestQueue request;
     private StringRequest stringRequest;
     private final int sobresTotal = 10;
-    private int sobresComprados;
+    private int sobresComprados=0;
     private int[] estampasCompradas = new int[50];
     private int[] estampasRepetidas = new int[50];
     private int[] nuevasEstampas = new int[5];
@@ -35,7 +40,8 @@ public class Tienda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tienda);
         ibSobre=(ImageButton) findViewById(R.id.ibSobre);
-
+        persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
+        leerInfo();
         ibSobre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,11 +67,10 @@ public class Tienda extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.i(TAG, response.toString());
                 Toast.makeText(Tienda.this, "Sobre comprado!", Toast.LENGTH_SHORT).show();
-                //parseRequest(response.toString());
                 setNuevasEstampas(parseRequest(response.toString()));
                 setEstampasCompradas(getNuevasEstampas());
                 setSobresComprados();
-                //setPersistencia();
+                setPersistencia();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -77,10 +82,64 @@ public class Tienda extends AppCompatActivity {
         request.add(stringRequest);
     }
 
-    private void leerInfo(){
-
-    }
     private void setPersistencia() {
+        SharedPreferences.Editor editorPersistencia = persistencia.edit();
+        String compradas = "";
+        for (int i = 0; i<getEstampasCompradas().length; i++){
+            if (i < getEstampasCompradas().length-1){
+                compradas = compradas+Integer.toString(getEstampasCompradas()[i])+",";
+            } else if (i == getEstampasCompradas().length-1){
+                compradas = compradas+Integer.toString(getEstampasCompradas()[i]);
+            }
+        }
+        String repetidas = "";
+        for (int i = 0; i<estampasRepetidas.length; i++){
+            if (i < getEstampasRepetidas().length-1){
+                repetidas = repetidas+Integer.toString(estampasRepetidas[i])+",";
+            } else if (i == getEstampasRepetidas().length-1){
+                repetidas = repetidas+Integer.toString(estampasRepetidas[i]);
+            }
+        }
+        Toast.makeText(this, repetidas,Toast.LENGTH_LONG ).show();
+        Toast.makeText(this, Integer.toString(sobresComprados),Toast.LENGTH_LONG ).show();
+        editorPersistencia.putString("compradas", compradas);
+        editorPersistencia.putString("repetidas", repetidas);
+        editorPersistencia.putString("sobresComprados", Integer.toString(sobresComprados));
+        editorPersistencia.apply();
+    }
+    private void leerInfo(){
+        // reptidas = 0,0,4,1,0,0,3,2....
+        if(persistencia.contains("repetidas")){
+            String repetidas = persistencia.getString("repetidas", "0");
+            Toast.makeText(this, repetidas,Toast.LENGTH_LONG ).show();
+            setEstampasRepetidas(parseoInfo(repetidas), "s");
+        } else {
+            for (int i =0; i<getEstampasRepetidas().length; i++){
+                estampasRepetidas[i] = 0;
+            }
+        }
+        // compradas = 1,2,3,4,5,0,0,8,9,0,...
+        if(persistencia.contains("compradas")){
+            String compradas = persistencia.getString("compradas", "0");
+            setEstampasRepetidas(parseoInfo(compradas), "s");
+        } else {
+            for (int i =0; i<getEstampasCompradas().length; i++){
+                estampasCompradas[i] = 0;
+            }
+        }
+        // sobresComprados = 3
+        if(persistencia.contains("sobresComprados")){
+            setSobresComprados(Integer.parseInt(persistencia.getString("sobresComprados", "0")));
+        }
+    }
+    public int[] parseoInfo(String cadena){
+        String[] r = cadena.split(",");
+        int[] regreso = new int[r.length];
+        for(int i=0; i<r.length ; i++){
+            //Toast.makeText(this, r[i], Toast.LENGTH_SHORT).show();
+            regreso[i] = Integer.parseInt(r[i]);
+        }
+        return regreso;
     }
 
     private int[] parseRequest(String s) {
@@ -105,36 +164,45 @@ public class Tienda extends AppCompatActivity {
 
     public void setSobresComprados() {
         this.sobresComprados = this.sobresComprados +1;
+        //sobres.setText("Sobre comprados: "+Integer.toString(this.sobresComprados));
     }
-
+    private void setSobresComprados(int sc){
+        this.sobresComprados = sc;
+        //sobres.setText("Sobre comprados: "+Integer.toString(this.sobresComprados));
+    }
     public int[] getEstampasCompradas() {
         return estampasCompradas;
     }
 
-    public void setEstampasCompradas(int[] nv) {
+    private void setEstampasCompradas(int[] nv) {
         for(int i=0; i<nv.length; i++){
             if(estampasCompradas[nv[i]-1] != nv[i]){
                 estampasCompradas[nv[i]-1] = nv[i];
             } else{
-                //setRepetidas
                 setEstampasRepetidas(nv[i]);
             }
         }
     }
-
+    private void setEstampasCompradas(int[] ec, String s){
+        this.estampasCompradas = ec;
+    }
     public int[] getEstampasRepetidas() {
         return estampasRepetidas;
     }
 
-    public void setEstampasRepetidas(int er) {
-        estampasRepetidas[er-1] = estampasRepetidas[er-1] +1;
+    private void setEstampasRepetidas(int er) {
+        this.estampasRepetidas[er-1] = this.estampasRepetidas[er-1] +1;
     }
+    private void setEstampasRepetidas(int[] er, String s){
+        this.estampasRepetidas = er;
+    }
+
 
     public int[] getNuevasEstampas() {
         return nuevasEstampas;
     }
 
-    public void setNuevasEstampas(int[] nuevasEstampas) {
+    private void setNuevasEstampas(int[] nuevasEstampas) {
         this.nuevasEstampas = nuevasEstampas;
     }
 }

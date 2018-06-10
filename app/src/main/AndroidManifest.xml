@@ -29,9 +29,6 @@
         <activity
             android:name=".Avance"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".Jugador"
-            android:screenOrientation="landscape" />
         <activity android:name=".VerAlbum"
             android:screenOrientation="landscape"/>
         <activity android:name=".Repetidas"

@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        leerInfo();
+        //leerInfo();
+        SharedPreferences persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
+        persistencia.edit().clear().apply();
         ibAvance = (ImageButton) findViewById(R.id.ibAvance);
         ibRepetidas = (ImageButton) findViewById(R.id.ibRepetidas);
         ibAlbum = (ImageButton) findViewById(R.id.ibAlbum);
@@ -61,15 +63,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void leerInfo(){
         SharedPreferences persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
-        if (persistencia.contains("repetidas")){
             // la informacion va a estar guardada de la siguiente forma: 1,2,3,4
-            if (persistencia.contains("repetidas")) {
-                String repetidas = persistencia.getString("repetidas", "0");
-                setEstampasRepetidas(parseoInfo(repetidas));
+        if (persistencia.contains("repetidas")) {
+            String repetidas = persistencia.getString("repetidas", "0");
+            Toast.makeText(this, repetidas,Toast.LENGTH_LONG ).show();
+            setEstampasRepetidas(parseoInfo(repetidas));
+        } else {
+            for (int i = 0; i < estampasRepetidas.length; i++) {
+                estampasRepetidas[i] = 0;
             }
-            if (persistencia.contains("compradas")){
-                String compradas = persistencia.getString("compradas", "0");
-                setEstampasCompradas(parseoInfo(compradas));
+        }
+        if (persistencia.contains("compradas")){
+            String compradas = persistencia.getString("compradas", "0");
+            Toast.makeText(this, compradas,Toast.LENGTH_LONG ).show();
+            setEstampasCompradas(parseoInfo(compradas));
+        }  else {
+            for (int i = 0; i < getEstampasCompradas().length; i++) {
+                estampasCompradas[i] = 0;
             }
         }
     }
@@ -111,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         //cambiar a pagina de compras
         Intent tienda= new Intent(this, Tienda.class);
         startActivity(tienda);
-        Toast.makeText(this, "comprar", Toast.LENGTH_SHORT).show();
     }
     public void verAlbum(){
         //cambiar a página de album

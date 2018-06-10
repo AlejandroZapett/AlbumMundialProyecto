@@ -47,14 +47,6 @@ public class Avance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avance);
-        this.estampasCompradas[14] = 15;
-        this.estampasCompradas[0] = 1;
-        this.estampasCompradas[1] = 2;
-        this.estampasCompradas[2] = 3;
-        this.estampasCompradas[3] = 4;
-        this.estampasCompradas[4] = 5;
-        this.estampasCompradas[5] = 6;
-        this.estampasCompradas[20] = 21;
         leerInfo();
         colocarCuadroEstampas();
         colocarListaEstampas();
@@ -243,10 +235,9 @@ public class Avance extends AppCompatActivity {
         for (Jugadores j:objetoJugadores){
             if(j.id == getIdJugador()-200){
                 jugador = j.nombre.replace(" ", "").toLowerCase().replace("á", "a").replace("é","e").replace("í","i").replace("ó","o").replace("ú", "u");
-                jugador = jugador.replace("-","").replace("ö","o").replace("ü", "u");
+                jugador = jugador.replace("-","").replace("ö","o").replace("ü", "u").replace(".","");
             }
         }
-        Toast.makeText(this, jugador, Toast.LENGTH_SHORT).show();
         TextView textClose;
         ImageView imageJugador;
         myDialog.setContentView(R.layout.activity_jugador);
