@@ -30,9 +30,11 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Jugador"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".VerAlbum" />
-        <activity android:name=".Repetidas"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".VerAlbum"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".Repetidas"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

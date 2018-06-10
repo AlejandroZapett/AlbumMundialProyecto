@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +38,8 @@ public class Avance extends AppCompatActivity {
     private final int numEstampas = 50;
     private int[] estampasCompradas = new int[50];
     private ArrayList<Text> listaText = new ArrayList<Text>();
-
+    private String nombreJugador;
+    private int idJugador;
 
     Button atras;
 
@@ -51,10 +54,11 @@ public class Avance extends AppCompatActivity {
         this.estampasCompradas[3] = 4;
         this.estampasCompradas[4] = 5;
         this.estampasCompradas[5] = 6;
+        this.estampasCompradas[20] = 21;
         leerInfo();
         colocarCuadroEstampas();
         colocarListaEstampas();
-        atras = (Button) findViewById(R.id.atras);
+        atras = findViewById(R.id.atras);
         myDialog = new Dialog(this);
 
         atras.setOnClickListener(new View.OnClickListener() {
@@ -65,14 +69,28 @@ public class Avance extends AppCompatActivity {
         });
     }
 
+    private int getIdJugador() {
+        return idJugador;
+    }
+
+    private void setIdJugador(int idJugador) {
+        this.idJugador = idJugador;
+    }
+
+    private String getNombreJugador() {
+        return nombreJugador;
+    }
+
+    private void setNombreJugador(String nombreJugador) {
+        this.nombreJugador = nombreJugador;
+    }
+
     public int getNumEstampas() {
         return numEstampas;
     }
-
     public int[] getEstampasCompradas() {
         return estampasCompradas;
     }
-
     private void setEstampasCompradas(int[] estampasCompradas) {
         for(int i = 0; i<estampasCompradas.length; i++) {
             this.estampasCompradas[i] = estampasCompradas[i];
@@ -115,11 +133,11 @@ public class Avance extends AppCompatActivity {
         Toast.makeText(this, "ver jugador", Toast.LENGTH_SHORT).show();
     }
     private void colocarCuadroEstampas(){
-        LinearLayout layoutH1 = (LinearLayout) findViewById(R.id.LOH1);
-        LinearLayout layoutH2 = (LinearLayout) findViewById(R.id.LOH2);
-        LinearLayout layoutH3 = (LinearLayout) findViewById(R.id.LOH3);
-        LinearLayout layoutH4 = (LinearLayout) findViewById(R.id.LOH4);
-        LinearLayout layoutH5 = (LinearLayout) findViewById(R.id.LOH5);
+        LinearLayout layoutH1 = findViewById(R.id.LOH1);
+        LinearLayout layoutH2 = findViewById(R.id.LOH2);
+        LinearLayout layoutH3 = findViewById(R.id.LOH3);
+        LinearLayout layoutH4 = findViewById(R.id.LOH4);
+        LinearLayout layoutH5 = findViewById(R.id.LOH5);
         LinearLayout[] listaLayout = {layoutH1, layoutH2, layoutH3, layoutH4, layoutH5};
         for(int i=0; i< getNumEstampas(); i++){
             listaText.add(new Text(Integer.toString(i+1), i));
@@ -145,7 +163,7 @@ public class Avance extends AppCompatActivity {
             frame.setPadding(30,30, 1,1);
             frame.setLayoutParams(params);
 
-            int valor = (int)(t.id/10);
+            int valor = t.id/10;
             switch (valor){
                 case 0:
                     listaLayout[0].addView(frame);
@@ -168,7 +186,7 @@ public class Avance extends AppCompatActivity {
 
     private void colocarListaEstampas(){
         String[] datos = listaJugadores.split(",");
-        LinearLayout layputDer = (LinearLayout) findViewById(R.id.LayoutVerticalDer);
+        LinearLayout layputDer = findViewById(R.id.LayoutVerticalDer);
         //Button prueba = new Button(getApplicationContext());
         //layputDer.addView(prueba);
 
@@ -181,16 +199,18 @@ public class Avance extends AppCompatActivity {
             // las repetidas son los id de los jugadores
             if (ec[i] != 0){
                 //crear boton y colocarlo en contenedor
-                Button btnJ = new Button(getApplicationContext());
+                final Button btnJ = new Button(getApplicationContext());
                 for (Jugadores j:objetoJugadores){
                     if(j.id == ec[i]){
                         String textoBoton = Integer.toString(j.id)+" "+j.nombre;
                         btnJ.setText(textoBoton);
                         layputDer.addView(btnJ);
+                        btnJ.setId(j.id+200);
+                        setNombreJugador(j.nombre);
                         btnJ.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //verJugador("avance", 1);
+                                idJugador=v.getId();
                                 showPopUp();
                             }
                         });
@@ -219,9 +239,20 @@ public class Avance extends AppCompatActivity {
         }
     }
     public void showPopUp() {
+        String jugador = "album";
+        for (Jugadores j:objetoJugadores){
+            if(j.id == getIdJugador()-200){
+                jugador = j.nombre.replace(" ", "").toLowerCase().replace("á", "a").replace("é","e").replace("í","i").replace("ó","o").replace("ú", "u");
+                jugador = jugador.replace("-","").replace("ö","o").replace("ü", "u");
+            }
+        }
+        Toast.makeText(this, jugador, Toast.LENGTH_SHORT).show();
         TextView textClose;
+        ImageView imageJugador;
         myDialog.setContentView(R.layout.activity_jugador);
-        textClose = (TextView) myDialog.findViewById(R.id.textClose);
+        textClose = myDialog.findViewById(R.id.textClose);
+        imageJugador = myDialog.findViewById(R.id.imageJugador);
+        imageJugador.setImageResource(getResources().getIdentifier("@drawable/"+jugador, null, getPackageName()));
         textClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
