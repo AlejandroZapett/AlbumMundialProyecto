@@ -25,7 +25,7 @@
         <activity
             android:name=".Avance"
             android:screenOrientation="landscape" />
-        <activity android:name=".Tienda"></activity>
+        <activity android:name=".VerAlbum"></activity>
     </application>
 
 </manifest>
