@@ -16,4 +16,5 @@
     <string name="poi">¿Estás seguro de querer comprar un sobre?</string>
     <string name="poc">¿Quieres intercambiar esta estampa?</string>
     <string name="si">Sí</string>
+    <string name="anterior">"{"</string>
 </resources>

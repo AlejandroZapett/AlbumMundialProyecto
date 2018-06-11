@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -57,18 +58,24 @@ public class Repetidas extends AppCompatActivity {
         anterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int ant = idEstampaRepetida;
                 idEstampaRepetida = obtenerAnterior();
-                Toast.makeText(Repetidas.this, Integer.toString(idEstampaRepetida), Toast.LENGTH_SHORT).show();
-                colorcarEstampa();
+                if (ant != idEstampaRepetida){
+                    Toast.makeText(Repetidas.this, Integer.toString(idEstampaRepetida), Toast.LENGTH_SHORT).show();
+                    colorcarEstampa();
+                }
             }
         });
 
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int ant = idEstampaRepetida;
                 idEstampaRepetida = obtenerSiguiente();
-                Toast.makeText(Repetidas.this, Integer.toString(idEstampaRepetida), Toast.LENGTH_SHORT).show();
-                colorcarEstampa();
+                if (ant != idEstampaRepetida){
+                    Toast.makeText(Repetidas.this, Integer.toString(idEstampaRepetida), Toast.LENGTH_SHORT).show();
+                    colorcarEstampa();
+                }
             }
         });
 
@@ -78,7 +85,7 @@ public class Repetidas extends AppCompatActivity {
         int num = idEstampaRepetida;
         if(num > 1){
             for (int i = 0; i < idEstampaRepetida-1; i++){
-                if(estampasRepetidas[i] != 0){
+                if(estampasRepetidas[i] > 0){
                     num = i+1;
                 }
             }
@@ -96,7 +103,7 @@ public class Repetidas extends AppCompatActivity {
                 }
             }
         }
-        return num;
+        return idEstampaRepetida;
     }
 
     private void leerInfo(){
@@ -127,6 +134,7 @@ public class Repetidas extends AppCompatActivity {
             if(estampasRepetidas[j.id-1] != 0){
                 contador = contador +1;
                 ImageButton estampa = new ImageButton(getApplicationContext());
+                estampa.setAdjustViewBounds(true);
                 estampa.setId(j.id+300);
                 String jugador = j.nombre.replace(" ", "").toLowerCase().replace("á", "a").replace("é","e").replace("í","i").replace("ó","o").replace("ú", "u");
                 jugador = jugador.replace("-","").replace("ö","o").replace("ü", "u").replace(".","");

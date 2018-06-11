@@ -62,12 +62,9 @@ public class VerAlbum extends AppCompatActivity {
 
     private void leerInfo(){
         SharedPreferences persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
-        if (persistencia.contains("repetidas")){
-            // la informacion va a estar guardada de la siguiente forma: 1,2,3,0,5,0,0,8
-            if (persistencia.contains("compradas")){
-                String compradas = persistencia.getString("compradas", "0");
-                setEstampasCompradas(parseoInfo(compradas));
-            }
+        if (persistencia.contains("compradas")){
+            String compradas = persistencia.getString("compradas", "0");
+            setEstampasCompradas(parseoInfo(compradas));
         }
     }
 
@@ -120,6 +117,7 @@ public class VerAlbum extends AppCompatActivity {
                 for (Jugadores js:objetoJugadores){
                     if(js.id == ec[i]) {
                         if(i<EstampasPorFila) {
+
                             TextView textView = new TextView(this);
                             ImageView imageView = new ImageView(this);
                             FrameLayout frame = new FrameLayout(getApplicationContext());
@@ -127,7 +125,7 @@ public class VerAlbum extends AppCompatActivity {
                             textView.setText(texto);
                             textView.setTextColor(getResources().getColor(R.color.SplashScreen));
                             jugador = js.nombre.replace(" ", "").toLowerCase().replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u");
-                            jugador = jugador.replace("-", "").replace("ö", "o").replace("ü", "u");
+                            jugador = jugador.replace("-", "").replace("ö", "o").replace("ü", "u").replace(".","");
                             imageView.setImageResource(getResources().getIdentifier("@drawable/" + jugador, null, getPackageName()));
                             frame.addView(imageView);
                             frame.addView(textView);
