@@ -37,16 +37,17 @@ public class VerAlbum extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_album);
-        this.estampasCompradas[14] = 15;
+        /*this.estampasCompradas[14] = 15;
         this.estampasCompradas[0] = 1;
         this.estampasCompradas[1] = 2;
         this.estampasCompradas[2] = 3;
         this.estampasCompradas[3] = 4;
         this.estampasCompradas[4] = 5;
         this.estampasCompradas[5] = 6;
-        this.estampasCompradas[30] = 31;
-        pegarEstampas();
+        this.estampasCompradas[30] = 31;*/
+
         leerInfo();
+        pegarEstampas();
     }
 
 
