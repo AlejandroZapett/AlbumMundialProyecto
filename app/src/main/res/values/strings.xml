@@ -14,5 +14,6 @@
     <string name="Cancelar">Cancelar</string>
     <string name="bloqueado">Bloqueado</string>
     <string name="poi">¿Estás seguro de querer comprar un sobre?</string>
+    <string name="poc">¿Quieres intercambiar esta estampa?</string>
     <string name="si">Sí</string>
 </resources>

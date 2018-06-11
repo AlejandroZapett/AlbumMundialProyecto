@@ -20,7 +20,8 @@ import java.util.ArrayList;
 public class Repetidas extends AppCompatActivity {
 
     SharedPreferences persistencia;
-    //ImageButton estampa;
+    Dialog popoverconfirmar;
+    Button confirmarIntercambio;
     TextView anterior;
     TextView siguiente;
     private final String listaJugadores = "1:Nawaf Al Abed,2:Mohamed Salah,3:Emil Forsberg,4:Aleksandr Kokorin," +
@@ -46,6 +47,7 @@ public class Repetidas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repetidas);
         persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
+        popoverconfirmar = new Dialog(this);
         anterior = (TextView) findViewById(R.id.tbi);
         siguiente = (TextView) findViewById(R.id.tbd);
         leerInfo();
@@ -55,8 +57,7 @@ public class Repetidas extends AppCompatActivity {
         anterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int[] ler = new int[numEstampasRepetidas];
-                idEstampaRepetida = obtenerAnterior(ler);
+                idEstampaRepetida = obtenerAnterior();
                 Toast.makeText(Repetidas.this, Integer.toString(idEstampaRepetida), Toast.LENGTH_SHORT).show();
                 colorcarEstampa();
             }
@@ -65,8 +66,7 @@ public class Repetidas extends AppCompatActivity {
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int[] ler = new int[numEstampasRepetidas];
-                idEstampaRepetida = obtenerSiguiente(ler);
+                idEstampaRepetida = obtenerSiguiente();
                 Toast.makeText(Repetidas.this, Integer.toString(idEstampaRepetida), Toast.LENGTH_SHORT).show();
                 colorcarEstampa();
             }
@@ -74,22 +74,26 @@ public class Repetidas extends AppCompatActivity {
 
     }
 
-    private int obtenerAnterior (int[] ler){
+    private int obtenerAnterior (){
         int num = idEstampaRepetida;
-        for (int i = 0; i < idEstampaRepetida-1; i++){
-            if(estampasRepetidas[i] != 0){
-                num = i+1;
+        if(num > 1){
+            for (int i = 0; i < idEstampaRepetida-1; i++){
+                if(estampasRepetidas[i] != 0){
+                    num = i+1;
+                }
             }
         }
         return num;
     }
 
-    private int obtenerSiguiente (int[] ler){
+    private int obtenerSiguiente (){
         int num = idEstampaRepetida;
-        for (int i = idEstampaRepetida; i<estampasRepetidas.length;i++){
-            if(estampasRepetidas[i] != 0){
-                num = i+1;
-                return num;
+        if (num < estampasRepetidas.length){
+            for (int i = idEstampaRepetida; i<estampasRepetidas.length;i++){
+                if(estampasRepetidas[i] != 0){
+                    num = i+1;
+                    return num;
+                }
             }
         }
         return num;
@@ -100,7 +104,6 @@ public class Repetidas extends AppCompatActivity {
         if (persistencia.contains("repetidas")){
             // la informacion va a estar guardada de la siguiente forma: 1,2,3,0,5,0,0,8
             String repetidas = persistencia.getString("repetidas", "0");
-            Toast.makeText(this, repetidas, Toast.LENGTH_SHORT).show();
             estampasRepetidas = parseoInfo(repetidas);
         }
     }
@@ -132,7 +135,6 @@ public class Repetidas extends AppCompatActivity {
             }
         }
         numEstampasRepetidas = contador;
-        Toast.makeText(this, Integer.toString(numEstampasRepetidas), Toast.LENGTH_SHORT).show();
         for (int i = 0; i< estampasRepetidas.length; i++){
             if ( estampasRepetidas[i] != 0){
                 idEstampaRepetida = i+1;
@@ -149,7 +151,7 @@ public class Repetidas extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         setIdIntercambio(v.getId());
-                        //pop over de intercambiar
+                        showPopUp();
                     }
                 });
             }
@@ -180,6 +182,20 @@ public class Repetidas extends AppCompatActivity {
 
     public void setIdIntercambio(int idIntercambio) {
         this.idIntercambio = idIntercambio-300;
+    }
+
+    public void showPopUp() {
+        popoverconfirmar.setContentView(R.layout.activity_popoverconfirmar);
+        confirmarIntercambio = popoverconfirmar.findViewById(R.id.btnintercambiar);
+        confirmarIntercambio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Repetidas.this, "intercambiando estampa:"+Integer.toString(idIntercambio), Toast.LENGTH_SHORT).show();
+                popoverconfirmar.dismiss();
+            }
+        });
+        popoverconfirmar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popoverconfirmar.show();
     }
 
 }
