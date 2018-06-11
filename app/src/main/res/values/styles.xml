@@ -9,7 +9,7 @@
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/background_slash</item>
+
     </style>
 
     <style name="PrimaryFlatButton" parent="Theme.AppCompat.Light">

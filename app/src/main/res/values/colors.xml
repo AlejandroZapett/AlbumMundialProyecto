@@ -6,5 +6,6 @@
     <color name="SplashScreen">#FFFFFF</color>
     <color name="DarkBlue">#0288D1</color>
     <color name="black">#000000</color>
+    <color name="fondo">#9A0000</color>
     <color name="lightBlue">#B3E5FC</color>
 </resources>
