@@ -1,12 +1,16 @@
 package me.alejnadrozapett.albummundialproyecto;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +27,8 @@ import org.json.JSONObject;
 
 public class Tienda extends AppCompatActivity {
     ImageButton ibSobre;
+    Button confirmarCompra;
+    Dialog popoverintercambiar;
     //TextView sobres = (TextView) findViewById(R.id.tvTienda4);
 
     private SharedPreferences persistencia;
@@ -40,13 +46,14 @@ public class Tienda extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tienda);
         ibSobre=(ImageButton) findViewById(R.id.ibSobre);
+        popoverintercambiar = new Dialog(this);
         persistencia = getSharedPreferences("persistencia", Context.MODE_PRIVATE);
         leerInfo();
         ibSobre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getSobresComprados() < getSobresTotal()){
-                    numerosAleatorios();
+                    showPopUp();
                 } else{
                     advertenciaDeCompra();
                 }
@@ -192,6 +199,19 @@ public class Tienda extends AppCompatActivity {
 
     private void setNuevasEstampas(int[] nuevasEstampas) {
         this.nuevasEstampas = nuevasEstampas;
+    }
+    public void showPopUp() {
+        popoverintercambiar.setContentView(R.layout.activity_popoverintercambiar);
+        confirmarCompra = popoverintercambiar.findViewById(R.id.btncompra);
+        confirmarCompra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numerosAleatorios();
+                popoverintercambiar.dismiss();
+            }
+        });
+        popoverintercambiar.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popoverintercambiar.show();
     }
 }
 

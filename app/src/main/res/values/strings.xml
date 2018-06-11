@@ -13,4 +13,6 @@
     <string name="Aceptar">Aceptar</string>
     <string name="Cancelar">Cancelar</string>
     <string name="bloqueado">Bloqueado</string>
+    <string name="poi">¿Estás seguro de querer comprar un sobre?</string>
+    <string name="si">Sí</string>
 </resources>
