@@ -4,7 +4,7 @@
     android:id="@+id/activity_slash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/fondo"
     android:paddingTop="16dp"
     android:paddingLeft="16dp"
     android:paddingBottom="16dp"
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/iv"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_gravity="center"
             android:src="@drawable/fondo" />
 
