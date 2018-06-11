@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Stars of Rusia 2018</string>
+    <string name="strAlbum">See Album</string>
+    <string name="strRepetidas">Repeated Stamps</string>
+    <string name="Avance">Progress</string>
+    <string name="strTienda">Buy package</string>
+    <string name="jugadores">Players</string>
+    <string name="strTienda1">Sticker Store</string>
+    <string name="strTienda2">Buy package:</string>
+    <string name="strTienda3">Remember that you can buy inky 10 packages. To complete the Album share your stickers with your friends.</string>
+    <string name="strTienda4">Packages bought:</string>
+    <string name="confirmacion_compra">Would you like to boy another package?</string>
+    <string name="Aceptar">OK</string>
+    <string name="Cancelar">Cancel</string>
+    <string name="bloqueado">Blocked</string>
+    <string name="poi">Are you sure?</string>
+    <string name="si">Yes</string>
+</resources>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Sterne von Russland 2018</string>
+    <string name="strAlbum">Album sehen</string>
+    <string name="strRepetidas">widerholte Grafike</string>
+    <string name="Avance">Fortschreiten</string>
+    <string name="strTienda">Briefumschlag kaufen</string>
+    <string name="jugadores">Spieler</string>
+    <string name="strTienda1">Briefumschlag Geschäft</string>
+    <string name="strTienda2">Briefumschlag kaufen:</string>
+    <string name="strTienda3">Denken Sie daran, dass Sie nur 10 Briefumschläge kaufen können!, Tausche Grafike mit ihren Freunden aus.</string>
+    <string name="strTienda4">>Gekaufte Briefumschläge:</string>
+    <string name="confirmacion_compra">Wollen Sie mehr Briefumschläge kaufen?</string>
+    <string name="Aceptar">OK</string>
+    <string name="Cancelar">Abbrechen</string>
+    <string name="bloqueado">Gesperrt</string>
+    <string name="poi">Sind Sie sicher?</string>
+    <string name="si">Ja</string>
+</resources>
