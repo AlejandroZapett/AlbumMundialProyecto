@@ -105,7 +105,7 @@ public class Tienda extends AppCompatActivity {
                 repetidas = repetidas+Integer.toString(estampasRepetidas[i]);
             }
         }
-        Toast.makeText(this, compradas,Toast.LENGTH_LONG ).show();
+        //Toast.makeText(this, compradas,Toast.LENGTH_LONG ).show();
         Toast.makeText(this, repetidas,Toast.LENGTH_LONG ).show();
         Toast.makeText(this, Integer.toString(sobresComprados),Toast.LENGTH_LONG ).show();
         editorPersistencia.putString("compradas", compradas);
