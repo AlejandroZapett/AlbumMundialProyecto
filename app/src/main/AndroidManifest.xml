@@ -17,10 +17,9 @@
             android:name=".Tienda"
             android:screenOrientation="portrait" />
 
-
         <activity
             android:name=".SplashScreen"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
